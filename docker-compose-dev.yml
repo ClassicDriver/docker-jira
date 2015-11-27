@@ -1,0 +1,18 @@
+web:
+  image: classicdriver/debian-wheezy-jira:7.0.2
+  environment:
+    - "DATABASE_URL=postgresql://postgres@db/jira"
+  ports:
+    - "8888:8080"
+  volumes_from:
+    - data
+  links:
+    - 'db:db'
+
+db:
+  image: classicdriver/jira-postgres:9.4
+
+data:
+  image: classicdriver/debian-wheezy-jira-data
+  volumes:
+    - ./datavolume:/var/jira_home
