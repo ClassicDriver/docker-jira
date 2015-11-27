@@ -24,7 +24,7 @@ ENV JIRA_HOME          /var/jira_home
 # ensure you use the same uid
 RUN useradd -c "jira role account" -d "$JIRA_HOME" -u 1000 -m -s /bin/bash ${RUN_USER}
 
-# Install Atlassian Bitbucket Server to the following location
+# Install Atlassian Jira Software to the following location
 ENV JIRA_INSTALL_DIR   /opt/atlassian/jira
 
 ENV JIRA_VERSION 7.0.2
@@ -41,14 +41,6 @@ RUN set -x \
     && chmod -R 700                      ${JIRA_INSTALL_DIR}/work           \
     && chown -R ${RUN_USER}:${RUN_GROUP} ${JIRA_INSTALL_DIR}/               \
     && echo                              "jira.home = $JIRA_HOME" > "${JIRA_INSTALL_DIR}/atlassian-jira/WEB-INF/classes/jira-application.properties"
-    # && mv                                ${JIRA_INSTALL_DIR}/conf/server.xml ${JIRA_INSTALL_DIR}/conf/server-backup.xml
-
-ADD common.bash ${JIRA_INSTALL_DIR}/common.bash
-ADD launch.bash ${JIRA_INSTALL_DIR}/launch
-
-RUN chown -R ${RUN_USER}:${RUN_GROUP}     ${JIRA_INSTALL_DIR}/launch  \
-    && chown -R ${RUN_USER}:${RUN_GROUP}  ${JIRA_INSTALL_DIR}/common.bash  \
-    && chmod -R 700                       ${JIRA_INSTALL_DIR}/launch
 
 USER ${RUN_USER}:${RUN_GROUP}
 
@@ -60,4 +52,4 @@ EXPOSE 8080
 WORKDIR $JIRA_INSTALL_DIR
 
 # Run in foreground
-CMD ["./launch"]
+CMD ["/opt/atlassian/jira/bin/start-jira.sh", "-fg"]
