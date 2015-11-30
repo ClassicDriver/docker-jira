@@ -34,13 +34,15 @@ ENV CONTEXT_PATH ${JIRA_INSTALL_DIR}
 
 RUN set -x \
     && mkdir -p                          ${JIRA_INSTALL_DIR}                \
+    && mkdir -p                          "${JIRA_INSTALL}/conf/Catalina"    \
     && curl -L --silent                  ${DOWNLOAD_URL} | tar -xz --strip=1 -C "$JIRA_INSTALL_DIR" \
     && rm -rf                            atlassian-jira-software-${JIRA_VERSION}-jira-${JIRA_VERSION}.tar.gz  \
+    && chmod -R 700                      ${JIRA_INSTALL_DIR}/conf           \
     && chmod -R 700                      ${JIRA_INSTALL_DIR}/logs           \
     && chmod -R 700                      ${JIRA_INSTALL_DIR}/temp           \
     && chmod -R 700                      ${JIRA_INSTALL_DIR}/work           \
     && chown -R ${RUN_USER}:${RUN_GROUP} ${JIRA_INSTALL_DIR}/               \
-    && echo                              "jira.home = $JIRA_HOME" > "${JIRA_INSTALL_DIR}/atlassian-jira/WEB-INF/classes/jira-application.properties"
+    && echo                              "jira.home = $JIRA_HOME" >> "${JIRA_INSTALL_DIR}/atlassian-jira/WEB-INF/classes/jira-application.properties"
 
 USER ${RUN_USER}:${RUN_GROUP}
 
