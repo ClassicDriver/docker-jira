@@ -1,10 +1,14 @@
+data:
+  image: classicdriver/debian-wheezy-jira-data
+  volumes:
+    - /data/docker/volumes/atlassian/jira:/var/jira_home
+db:
+  image: classicdriver/jira-postgres
 web:
-  image: durdn/atlassian-jira
-  environment:
-    - 'DATABASE_URL=postgresql://postgres@db/postgres'
+  image: classicdriver/debian-wheezy-jira:7.0.2
   ports:
     - '8080:8080'
+  volumes_from:
+    - data
   links:
-    - 'db'
-db:
-  image: postgres:9.4
+    - db:db
