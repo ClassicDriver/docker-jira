@@ -1,7 +1,7 @@
 ##########################################################################################
 # ClassicDriver Bitbucket Data Volume Docker Image
 ##########################################################################################
-FROM classicdriver/debian-wheezy-base
+FROM classicdriver/base
 
 MAINTAINER Team Nitrous <nitrous@classicdriver.com>
 

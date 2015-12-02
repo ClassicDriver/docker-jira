@@ -1,11 +1,11 @@
 data:
-  image: classicdriver/debian-wheezy-jira-data
+  image: classicdriver/jira-data
   volumes:
     - /data/docker/volumes/atlassian/jira:/var/jira_home
 db:
   image: classicdriver/jira-postgres
 web:
-  image: classicdriver/debian-wheezy-jira:7.0.2
+  image: classicdriver/jira:7.0.2
   ports:
     - '8080:8080'
   volumes_from:

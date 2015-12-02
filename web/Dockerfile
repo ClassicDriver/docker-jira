@@ -1,7 +1,7 @@
 ##########################################################################################
 # ClassicDriver Docker image with Jira installed
 ##########################################################################################
-FROM classicdriver/debian-wheezy-java:1.8.60
+FROM classicdriver/java:1.8.60
 
 MAINTAINER Team Nitrous <nitrous@classicdriver.com>
 
